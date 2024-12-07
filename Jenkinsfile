@@ -53,13 +53,3 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo "Cleaning up..."
-            script {
-                // Clean up dangling images
-                sh "docker image prune -f"
-            }
-        }
-    }
-}
