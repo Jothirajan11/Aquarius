@@ -32,7 +32,7 @@ pipeline {
                 echo "Pushing Docker image to Docker Hub..."
                 script {
                     // Log in to Docker Hub and push the image
-                    withDockerRegistry([credentialsId: 'demo', url: '']) {
+                    withDockerRegistry([credentialsId: 'demo1', url: '']) {
                         sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
                     }
                 }
