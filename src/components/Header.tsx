@@ -7,7 +7,7 @@ export const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Droplets className="h-8 w-8 text-blue-300" />
-          <h1 className="text-2xl font-bold">Aquarius Portal</h1>
+          <h1 className="text-2xl font-bold">JENKINS</h1>
         </div>
         <nav>
           <ul className="flex space-x-6">
