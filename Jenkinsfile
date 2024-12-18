@@ -16,6 +16,7 @@ pipeline {
                 git branch: "${BRANCH}", url: "${REPO_URL}"
             }
         } 
+
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image..."
@@ -25,6 +26,7 @@ pipeline {
                 }
             }
         }
+
         stage('Push Docker Image') {
             steps {
                 echo "Pushing Docker image to Docker Hub..."
@@ -35,15 +37,27 @@ pipeline {
                     }
                 }
             }
-            stage('Deploy Application') {
+        }
+
+        stage('Deploy Application') {
             steps {
                 echo "Deploying the Docker container..."
                 script {
                     // Run the Docker container
                     sh """
-                    docker run -p 1001:5173 -d --name demo ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest
+                    docker run -d --name ${IMAGE_NAME} -p 4300:5173 ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest
                     """
                 }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up..."
+            script {
+                // Clean up dangling images
+                sh "docker image prune -f"
             }
         }
     }
