@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set your environment variables
         DOCKER_REGISTRY = 'jothirajan1124' // Replace with your Docker Hub username
-        IMAGE_NAME = 'vite-app2'      // Replace with your image name
+        IMAGE_NAME = 'vite-app3'      // Replace with your image name
         REPO_URL = 'https://github.com/Jothirajan11/Aquarius.git' // Replace with your GitHub repo URL
         BRANCH = 'main'                            // Branch to pull from
     }
@@ -15,7 +15,7 @@ pipeline {
                 echo "Cloning repository from GitHub..."
                 git branch: "${BRANCH}", url: "${REPO_URL}"
             }
-        }
+        } 
 
         stage('Build Docker Image') {
             steps {
@@ -32,7 +32,7 @@ pipeline {
                 echo "Pushing Docker image to Docker Hub..."
                 script {
                     // Log in to Docker Hub and push the image
-                    withDockerRegistry([credentialsId: 'demo1', url: '']) {
+                    withDockerRegistry([credentialsId: 'demo', url: '']) {
                         sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
                     }
                 }
@@ -45,9 +45,19 @@ pipeline {
                 script {
                     // Run the Docker container
                     sh """
-                    docker run -p 1001:5173 -d --name demo ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest
+                    docker run -d --name ${IMAGE_NAME} -p 4302:5173 ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest
                     """
                 }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up..."
+            script {
+                // Clean up dangling images
+                sh "docker image prune -f"
             }
         }
     }
