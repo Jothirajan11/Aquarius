@@ -16,17 +16,6 @@ pipeline {
                 git branch: "${BRANCH}", url: "${REPO_URL}"
             }
         }
-
-        stage('Build Docker Image') {
-            steps {
-                echo "Building Docker image..."
-                script {
-                    // Build the Docker image
-                    sh "docker build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest ."
-                }
-            }
-        }
-
         stage('Push Docker Image') {
             steps {
                 echo "Pushing Docker image to Docker Hub..."
