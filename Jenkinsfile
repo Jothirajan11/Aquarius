@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Set your environment variables
         DOCKER_REGISTRY = 'jothirajan1124' // Replace with your Docker Hub username
-        IMAGE_NAME = 'vite-app4'      // Replace with your image name
+        IMAGE_NAME = 'vite-app0'      // Replace with your image name
         REPO_URL = 'https://github.com/Jothirajan11/Aquarius.git' // Replace with your GitHub repo URL
         BRANCH = 'main'                            // Branch to pull from
     }
