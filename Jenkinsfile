@@ -25,8 +25,17 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy Application') {
+        stage('Push Docker Image') {
+            steps {
+                echo "Pushing Docker image to Docker Hub..."
+                script {
+                    // Log in to Docker Hub and push the image
+                    withDockerRegistry([credentialsId: 'demo', url: '']) {
+                        sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+                    }
+                }
+            }
+            stage('Deploy Application') {
             steps {
                 echo "Deploying the Docker container..."
                 script {
