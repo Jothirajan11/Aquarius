@@ -15,15 +15,13 @@ pipeline {
                 echo "Cloning repository from GitHub..."
                 git branch: "${BRANCH}", url: "${REPO_URL}"
             }
-        }
-        stage('Push Docker Image') {
+        } 
+        stage('Build Docker Image') {
             steps {
-                echo "Pushing Docker image to Docker Hub..."
+                echo "Building Docker image..."
                 script {
-                    // Log in to Docker Hub and push the image
-                    withDockerRegistry([credentialsId: 'demo', url: '']) {
-                        sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
-                    }
+                    // Build the Docker image
+                    sh "docker build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest ."
                 }
             }
         }
