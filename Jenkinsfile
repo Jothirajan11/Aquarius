@@ -45,7 +45,7 @@ pipeline {
                 script {
                     // Run the Docker container
                     sh """
-                    docker run -d --name ${IMAGE_NAME} -p 4300:5173 ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest
+                    docker run -d --name ${IMAGE_NAME} -p 4301:5173 ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest
                     """
                 }
             }
